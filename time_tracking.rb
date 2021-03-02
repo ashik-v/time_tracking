@@ -35,7 +35,7 @@ while true
   when /^d/
     puts "Which project would you like to delete?"
     command = gets.chomp
-    projects.delete(command)
+    projects.delete_if { |project| project.name == command }
   end
   store.transaction do
     store["Projects"] = projects
