@@ -8,7 +8,13 @@
 
 # c = create, l = list, d = delete, s = select
 # b = begin timer, e = end timer
-projects = []
+require 'yaml/store'
+
+store = YAML::Store.new "projects.yaml"
+projects = nil
+store.transaction do
+  projects = store["Projects"] || []
+end
 
 while true
   puts "What is the command?\nc = create, l = list, d = delete\n s = select b = begin timer e = end timer"
@@ -25,7 +31,7 @@ while true
     command = gets.chomp
     projects.delete(command)
   end
+  store.transaction do
+    store["Projects"] = projects
+  end
 end
-
-
-
