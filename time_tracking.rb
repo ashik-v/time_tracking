@@ -20,6 +20,10 @@ while true
     projects << project_name
   when /^l/
     puts projects
+  when /^d/
+    puts "Which project would you like to delete?"
+    command = gets.chomp
+    projects.delete(command)
   end
 end
 
