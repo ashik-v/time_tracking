@@ -10,9 +10,9 @@
 # b = begin timer, e = end timer
 require 'yaml/store'
 
-Project = Struct.new(:name) do
+Project = Struct.new(:name, :minutes, :start_time) do
   def to_s
-    name
+    format("%s %s %s", name, minutes, start_time)
   end
 end
 
@@ -29,13 +29,18 @@ while true
   when /^c/
     puts "What is the project name?"
     project_name = gets.chomp
-    projects << Project.new(project_name)
+    projects << Project.new(project_name, 0)
   when /^l/
     puts projects
   when /^d/
     puts "Which project would you like to delete?"
-    command = gets.chomp
-    projects.delete_if { |project| project.name == command }
+    project_name = gets.chomp
+    projects.delete_if { |project| project.name == project_name }
+  when /^b/
+    puts "Which project would you like to start a timer for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    project.start_time = Time.now
   end
   store.transaction do
     store["Projects"] = projects
