@@ -10,6 +10,12 @@
 # b = begin timer, e = end timer
 require 'yaml/store'
 
+Project = Struct.new(:name) do
+  def to_s
+    name
+  end
+end
+
 store = YAML::Store.new "projects.yaml"
 projects = nil
 store.transaction do
@@ -23,7 +29,7 @@ while true
   when /^c/
     puts "What is the project name?"
     project_name = gets.chomp
-    projects << project_name
+    projects << Project.new(project_name)
   when /^l/
     puts projects
   when /^d/
