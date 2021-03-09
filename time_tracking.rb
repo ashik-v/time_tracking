@@ -1,9 +1,6 @@
-# projects
-# select project
-# start timer
-# stop timer
-# record time to project
-# update timer
+# cloumn headers
+# extract methods
+# format time HH:MM
 
 # c = create, l = list, d = delete, s = select
 # b = begin timer, e = end timer
@@ -22,6 +19,10 @@ store.transaction do
 end
 
 while true
+  puts format("%-15s | %10s | %10s", "Project Name", "Duration", "Start Time")
+  projects.each do |project|
+    puts format("%-15s | %10s | %10s", project.name, project.minutes, project.start_time || "-")
+  end
   puts "What is the command?\nc = create, l = list, d = delete\n s = set duration b = begin timer e = end timer"
   command = gets.chomp
   case command
