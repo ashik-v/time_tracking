@@ -5,7 +5,6 @@
 # record time to project
 # update timer
 
-
 # c = create, l = list, d = delete, s = select
 # b = begin timer, e = end timer
 require 'yaml/store'
@@ -41,6 +40,12 @@ while true
     project_name = gets.chomp
     project = projects.find { |project| project.name == project_name }
     project.start_time = Time.now
+  when /^e/
+    puts "What project would you like to end timer for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    project.minutes = (Time.now - project.start_time)/60
+    project.start_time = nil
   end
   store.transaction do
     store["Projects"] = projects
