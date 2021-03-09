@@ -22,7 +22,7 @@ store.transaction do
 end
 
 while true
-  puts "What is the command?\nc = create, l = list, d = delete\n s = select b = begin timer e = end timer"
+  puts "What is the command?\nc = create, l = list, d = delete\n s = set duration b = begin timer e = end timer"
   command = gets.chomp
   case command
   when /^c/
@@ -45,6 +45,13 @@ while true
     project_name = gets.chomp
     project = projects.find { |project| project.name == project_name }
     project.minutes = (Time.now - project.start_time)/60
+    project.start_time = nil
+  when /^s/
+    puts "What project would you like to edit timer for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    puts "What is the updated duration?"
+    project.minutes = gets.chomp.to_i
     project.start_time = nil
   end
   store.transaction do
