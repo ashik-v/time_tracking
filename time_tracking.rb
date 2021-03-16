@@ -6,17 +6,34 @@
 # b = begin timer, e = end timer
 require 'yaml/store'
 
-Project = Struct.new(:name, :minutes, :start_time) do
-  def to_s
-    format("%s %s %s", name, minutes, start_time)
+module ProjectRepo
+  def self.load_projects
+    store = YAML::Store.new "projects.yaml"
+    projects = nil
+    store.transaction do
+      projects = store["Projects"] || []
+    end
+    projects
   end
+
+  def self.save_projects(projects)
+    store = YAML::Store.new "projects.yaml"
+    store.transaction do
+      store["Projects"] = projects
+    end
+  end  
 end
 
+Project = Struct.new(:name, :minutes, :start_time) do
+    def to_s
+      format("%s %s %s", name, minutes, start_time)
+    end
+end
 
 
 class TimeTracking
   def main
-    projects = load_projects
+    projects = ProjectRepo.load_projects
     
     while true
       puts format("%-15s | %10s | %10s", "Project Name", "Duration", "Start Time")
@@ -55,23 +72,8 @@ class TimeTracking
         project.minutes = gets.chomp.to_i
         project.start_time = nil
       end
-      save_projects(projects)
+      ProjectRepo.save_projects(projects)
     end   
-  end
-
-  def load_projects
-    @store = YAML::Store.new "projects.yaml"
-    projects = nil
-    @store.transaction do
-      projects = @store["Projects"] || []
-    end
-    projects
-  end
-
-  def save_projects(projects)
-    @store.transaction do
-      @store["Projects"] = projects
-    end
   end
 end
 
