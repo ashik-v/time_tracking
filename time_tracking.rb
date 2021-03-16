@@ -4,25 +4,7 @@
 
 # c = create, l = list, d = delete, s = select
 # b = begin timer, e = end timer
-require 'yaml/store'
-
-module ProjectRepo
-  def self.load_projects
-    store = YAML::Store.new "projects.yaml"
-    projects = nil
-    store.transaction do
-      projects = store["Projects"] || []
-    end
-    projects
-  end
-
-  def self.save_projects(projects)
-    store = YAML::Store.new "projects.yaml"
-    store.transaction do
-      store["Projects"] = projects
-    end
-  end  
-end
+require_relative "project_repo"
 
 Project = Struct.new(:name, :minutes, :start_time) do
     def to_s
@@ -30,11 +12,9 @@ Project = Struct.new(:name, :minutes, :start_time) do
     end
 end
 
-
 class TimeTracking
   def main
     projects = ProjectRepo.load_projects
-    
     while true
       puts format("%-15s | %10s | %10s", "Project Name", "Duration", "Start Time")
       projects.each do |project|
