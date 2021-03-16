@@ -16,11 +16,7 @@ end
 
 class TimeTracking
   def main
-    store = YAML::Store.new "projects.yaml"
-    projects = nil
-    store.transaction do
-      projects = store["Projects"] || []
-    end
+    projects = load_projects
     
     while true
       puts format("%-15s | %10s | %10s", "Project Name", "Duration", "Start Time")
@@ -59,10 +55,23 @@ class TimeTracking
         project.minutes = gets.chomp.to_i
         project.start_time = nil
       end
-      store.transaction do
-        store["Projects"] = projects
-      end
+      save_projects(projects)
     end   
+  end
+
+  def load_projects
+    @store = YAML::Store.new "projects.yaml"
+    projects = nil
+    @store.transaction do
+      projects = @store["Projects"] || []
+    end
+    projects
+  end
+
+  def save_projects(projects)
+    @store.transaction do
+      @store["Projects"] = projects
+    end
   end
 end
 
