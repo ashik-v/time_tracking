@@ -7,6 +7,7 @@ Project = Struct.new(:name) do
 end
 
 store = YAML::Store.new "scrap_projects.yaml"
+
 projects = []
 store.transaction do
   projects = store["Projects"] || []
