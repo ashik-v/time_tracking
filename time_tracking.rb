@@ -6,11 +6,7 @@
 # b = begin timer, e = end timer
 require_relative "project_repo"
 
-Project = Struct.new(:name, :minutes, :start_time) do
-    def to_s
-      format("%s %s %s", name, minutes, start_time)
-    end
-end
+Project = Struct.new(:name, :minutes, :start_time)
 
 class TimeTracking
   def main
@@ -20,15 +16,13 @@ class TimeTracking
       projects.each do |project|
         puts format("%-15s | %10s | %10s", project.name, project.minutes, project.start_time || "-")
       end
-      puts "What is the command?\nc = create, l = list, d = delete\n s = set duration b = begin timer e = end timer"
+      puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
       command = gets.chomp
       case command
       when /^c/
         puts "What is the project name?"
         project_name = gets.chomp
         projects << Project.new(project_name, 0)
-      when /^l/
-        puts projects
       when /^d/
         puts "Which project would you like to delete?"
         project_name = gets.chomp
@@ -42,7 +36,7 @@ class TimeTracking
         puts "What project would you like to end timer for?"
         project_name = gets.chomp
         project = projects.find { |project| project.name == project_name }
-        project.minutes = (Time.now - project.start_time)/60
+        project.minutes = ((Time.now - project.start_time)/60).to_i
         project.start_time = nil
       when /^s/
         puts "What project would you like to edit timer for?"
