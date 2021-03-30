@@ -6,7 +6,11 @@
 # b = begin timer, e = end timer
 require_relative "project_repo"
 
-Project = Struct.new(:name, :minutes, :last_started_at, :display_time)
+Project = Struct.new(:name, :minutes, :last_started_at, :display_time) do
+  def display_time
+    format("%02d:%02d",(minutes.to_i/60).to_i, (minutes.to_i%60).to_i)
+  end
+end
 
 class TimeTracking
   def main
@@ -38,7 +42,6 @@ class TimeTracking
         project = projects.find { |project| project.name == project_name }
         project.minutes += ((Time.now - project.last_started_at)/60).to_i
         project.last_started_at = nil
-        project.display_time = format("%02d:%02d",(project.minutes.to_i/60).to_i, (project.minutes.to_i%60).to_i)
       when /^s/
         puts "What project would you like to edit minutes for?"
         project_name = gets.chomp
@@ -46,7 +49,6 @@ class TimeTracking
         puts "What are the updated minutes?"
         project.minutes = gets.chomp.to_i
         project.last_started_at = nil
-        project.display_time = format("%02d:%02d",(project.minutes.to_i/60).to_i, (project.minutes.to_i%60).to_i)
       end
       ProjectRepo.save_projects(projects)
     end   
