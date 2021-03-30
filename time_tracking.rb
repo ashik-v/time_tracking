@@ -6,21 +6,24 @@
 # b = begin timer, e = end timer
 require_relative "project_repo"
 
-Project = Struct.new(:name, :minutes, :last_started_at, :display_time) do
+Project = Struct.new(:name, :minutes, :last_started_at) do
   def display_time
     format("%02d:%02d",(minutes.to_i/60).to_i, (minutes.to_i%60).to_i)
   end
 end
 
 class TimeTracking
+  def display_projects
+    puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
+    projects.each do |project|
+      puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
+    end
+    puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+  end
+
   def main
-    projects = ProjectRepo.load_projects
     while true
-      puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
-      projects.each do |project|
-        puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
-      end
-      puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+      display_projects
       command = gets.chomp
       case command
       when /^c/
@@ -52,6 +55,10 @@ class TimeTracking
       end
       ProjectRepo.save_projects(projects)
     end   
+  end
+
+  def projects
+    @projects ||= ProjectRepo.load_projects
   end
 end
 
