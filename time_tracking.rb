@@ -1,9 +1,3 @@
-# cloumn headers
-# extract methods
-# format time HH:MM
-
-# c = create, l = list, d = delete, s = select
-# b = begin timer, e = end timer
 require_relative "project_repo"
 require_relative "project"
 
@@ -43,32 +37,52 @@ class TimeTracking
   def handle_command (command)
     case command
     when /^c/
-      puts "What is the project name?"
-      project_name = gets.chomp
-      projects << Project.new(project_name, 0)
+      create_project
     when /^d/
-      puts "Which project would you like to delete?"
-      project_name = gets.chomp
-      projects.delete_if { |project| project.name == project_name }
+      delete_project
     when /^b/
-      puts "Which project would you like to start a timer for?"
-      project_name = gets.chomp
-      project = projects.find { |project| project.name == project_name }
-      project.last_started_at = Time.now
+      start_timer
     when /^e/
-      puts "What project would you like to end timer for?"
-      project_name = gets.chomp
-      project = projects.find { |project| project.name == project_name }
-      project.minutes += ((Time.now - project.last_started_at)/60).to_i
-      project.last_started_at = nil
+      end_timer
     when /^s/
-      puts "What project would you like to edit minutes for?"
-      project_name = gets.chomp
-      project = projects.find { |project| project.name == project_name }
-      puts "What are the updated minutes?"
-      project.minutes = gets.chomp.to_i
-      project.last_started_at = nil
+      edit_timer
     end
+  end
+
+  def create_project
+    puts "What is the project name?"
+    project_name = gets.chomp
+    projects << Project.new(project_name, 0)
+  end
+
+  def delete_project
+    puts "Which project would you like to delete?"
+    project_name = gets.chomp
+    projects.delete_if { |project| project.name == project_name }
+  end
+
+  def start_timer
+    puts "Which project would you like to start a timer for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    project.last_started_at = Time.now
+  end
+
+  def end_timer
+    puts "What project would you like to end timer for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    project.minutes += ((Time.now - project.last_started_at)/60).to_i
+    project.last_started_at = nil
+  end
+
+  def edit_timer
+    puts "What project would you like to edit minutes for?"
+    project_name = gets.chomp
+    project = projects.find { |project| project.name == project_name }
+    puts "What are the updated minutes?"
+    project.minutes = gets.chomp.to_i
+    project.last_started_at = nil
   end
 
   def save_projects
