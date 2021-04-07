@@ -1,4 +1,4 @@
-require 'yaml/store'
+require "yaml/store"
 
 module ProjectRepo
   def self.load_projects
@@ -15,5 +15,5 @@ module ProjectRepo
     store.transaction do
       store["Projects"] = projects
     end
-  end  
+  end
 end

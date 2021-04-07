@@ -3,12 +3,12 @@ require_relative "project"
 
 class TimeTracking
   def main
-    while true
+    loop do
       display_projects
       display_prompt
       handle_command(get_command)
       save_projects
-    end   
+    end
   end
 
   def display_projects
@@ -34,7 +34,7 @@ class TimeTracking
     gets.chomp
   end
 
-  def handle_command (command)
+  def handle_command(command)
     case command
     when /^c/
       create_project
@@ -72,7 +72,7 @@ class TimeTracking
     puts "What project would you like to end timer for?"
     project_name = gets.chomp
     project = projects.find { |project| project.name == project_name }
-    project.minutes += ((Time.now - project.last_started_at)/60).to_i
+    project.minutes += ((Time.now - project.last_started_at) / 60).to_i
     project.last_started_at = nil
   end
 

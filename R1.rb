@@ -1,4 +1,4 @@
-require 'yaml/store'
+require "yaml/store"
 
 Project = Struct.new(:name) do
   def to_s
@@ -13,7 +13,7 @@ store.transaction do
   projects = store["Projects"] || []
 end
 
-while true
+loop do
   puts "Enter Command: \n c: create d: delete l: list"
   command = gets.chomp
 
@@ -25,7 +25,7 @@ while true
   when /^d/
     puts "Enter project name"
     project_name = gets.chomp
-    projects.delete_if {|project| project.name == project_name}
+    projects.delete_if { |project| project.name == project_name }
   when /^l/
     puts projects
   end
