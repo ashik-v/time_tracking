@@ -8,7 +8,15 @@ require_relative "project_repo"
 
 Project = Struct.new(:name, :minutes, :last_started_at) do
   def display_time
-    format("%02d:%02d",(minutes.to_i/60).to_i, (minutes.to_i%60).to_i)
+    format("%02d:%02d",display_hours, display_minutes)
+  end
+
+  def display_hours
+    minutes.to_i/60
+  end
+
+  def display_minutes
+    minutes.to_i%60
   end
 end
 
@@ -17,21 +25,32 @@ class TimeTracking
     while true
       display_projects
       display_prompt
-      command = gets.chomp
-      handle_command(command)
-      ProjectRepo.save_projects(projects)
+      handle_command(get_command)
+      save_projects
     end   
   end
 
   def display_projects
-    puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
+    display_header
     projects.each do |project|
-      puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
+      display_project(project)
     end
+  end
+
+  def display_header
+    puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
+  end
+
+  def display_project(project)
+    puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
   end
 
   def display_prompt
     puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+  end
+
+  def get_command
+    gets.chomp
   end
 
   def handle_command (command)
@@ -63,6 +82,10 @@ class TimeTracking
       project.minutes = gets.chomp.to_i
       project.last_started_at = nil
     end
+  end
+
+  def save_projects
+    ProjectRepo.save_projects(projects)
   end
 
   def projects
