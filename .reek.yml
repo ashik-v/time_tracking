@@ -1,0 +1,19 @@
+detectors:
+  DuplicateMethodCall:
+    enabled: false
+  IrresponsibleModule:
+    enabled: false
+  TooManyConstants:
+    enabled: false
+  UncommunicativeMethodName:
+    enabled: false
+  UncommunicativeModuleName:
+    enabled: false
+  UncommunicativeParameterName:
+    enabled: false
+  UncommunicativeVariableName:
+    enabled: false
+  UnusedPrivateMethod:
+    enabled: true
+  UtilityFunction:
+    public_methods_only: true
