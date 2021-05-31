@@ -7,7 +7,7 @@ class TimeTracking
     loop do
       display_projects
       display_prompt
-      HandleCommand.new(projects).handle_command(get_command)
+      HandleCommand.new(projects).handle_command(command_from_user)
       save_projects
     end
   end
@@ -31,7 +31,7 @@ class TimeTracking
     puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
   end
 
-  def get_command
+  def command_from_user
     gets.chomp
   end
 
