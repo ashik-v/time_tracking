@@ -1,4 +1,5 @@
 require "yaml/store"
+require_relative "project"
 
 module ProjectRepo
   def self.load_projects

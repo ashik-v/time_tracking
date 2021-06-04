@@ -1,6 +1,6 @@
-require_relative "project_repo"
-require_relative "project"
-require_relative "handle_command"
+require "active_support"
+
+ActiveSupport::Dependencies.autoload_paths = ["lib/"]
 
 COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
 
