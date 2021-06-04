@@ -1,3 +1,5 @@
+require_relative "create_project"
+
 class HandleCommand < Struct.new(:projects)
   def handle_command(command)
     case command
@@ -11,14 +13,6 @@ class HandleCommand < Struct.new(:projects)
       EndTimer.new(projects).run
     when /^s/
       EditTimer.new(projects).run
-    end
-  end
-
-  class CreateProject < Struct.new(:projects)
-    def run
-      puts "What is the project name?"
-      project_name = gets.chomp
-      projects << Project.new(project_name, 0)
     end
   end
 

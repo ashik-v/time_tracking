@@ -1,1 +1,0 @@
-ruby ./lib/time_tracking.rb

@@ -1,7 +1,1 @@
-#!/bin/bash
-
-trap "echo Exited!; exit;" SIGINT SIGTERM
-
-while true; do
-  ag -g '\.rb$' | entr -c -d -p -s 'rubocop -A lib'
-done
+ruby ./lib/time_tracking.rb
