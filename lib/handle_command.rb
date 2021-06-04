@@ -2,15 +2,18 @@ class HandleCommand < Struct.new(:projects)
   def handle_command(command)
     case command
     when /^c/
-      Commands::CreateProject.new(projects).run
+      Commands::CreateProject
     when /^d/
-      Commands::DeleteProject.new(projects).run
+      Commands::DeleteProject
     when /^b/
-      Commands::StartTimer.new(projects).run
+      Commands::StartTimer
     when /^e/
-      Commands::EndTimer.new(projects).run
+      Commands::EndTimer
     when /^s/
-      Commands::EditTimer.new(projects).run
-    end
+      Commands::EditTimer
+    else
+      puts "Invalid Command - enter command"
+      return
+    end.new(projects).run
   end
 end

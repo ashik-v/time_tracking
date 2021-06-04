@@ -2,7 +2,7 @@ require "active_support"
 
 ActiveSupport::Dependencies.autoload_paths = ["lib/"]
 
-COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
+COMMANDS = %w[t c scrap b scrap e scrap s scrap 65 d scrap]
 
 def gets
   COMMANDS.shift || exit
