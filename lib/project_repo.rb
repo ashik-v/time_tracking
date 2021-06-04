@@ -2,7 +2,7 @@ require "yaml/store"
 
 module ProjectRepo
   def self.load_projects
-    store = YAML::Store.new "projects.yaml"
+    store = YAML::Store.new "data/projects.yaml"
     projects = nil
     store.transaction do
       projects = store["Projects"] || []
@@ -11,7 +11,7 @@ module ProjectRepo
   end
 
   def self.save_projects(projects)
-    store = YAML::Store.new "projects.yaml"
+    store = YAML::Store.new "data/projects.yaml"
     store.transaction do
       store["Projects"] = projects
     end
