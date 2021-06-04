@@ -1,4 +1,8 @@
 require_relative "create_project"
+require_relative "delete_project"
+require_relative "start_timer"
+require_relative "end_timer"
+require_relative "edit_timer"
 
 class HandleCommand < Struct.new(:projects)
   def handle_command(command)
@@ -13,44 +17,6 @@ class HandleCommand < Struct.new(:projects)
       EndTimer.new(projects).run
     when /^s/
       EditTimer.new(projects).run
-    end
-  end
-
-  class DeleteProject < Struct.new(:projects)
-    def run
-      puts "Which project would you like to delete?"
-      project_name = gets.chomp
-      projects.delete_if { |p| p.name == project_name }
-    end
-  end
-
-  class StartTimer < Struct.new(:projects)
-    def run
-      puts "Which project would you like to start a timer for?"
-      project_name = gets.chomp
-      project = projects.find { |p| p.name == project_name }
-      project.last_started_at = Time.now
-    end
-  end
-
-  class EndTimer < Struct.new(:projects)
-    def run
-      puts "What project would you like to end timer for?"
-      project_name = gets.chomp
-      project = projects.find { |p| p.name == project_name }
-      project.minutes += ((Time.now - project.last_started_at) / 60).to_i
-      project.last_started_at = nil
-    end
-  end
-
-  class EditTimer < Struct.new(:projects)
-    def run
-      puts "What project would you like to edit minutes for?"
-      project_name = gets.chomp
-      project = projects.find { |p| p.name == project_name }
-      puts "What are the updated minutes?"
-      project.minutes = gets.chomp.to_i
-      project.last_started_at = nil
     end
   end
 end
