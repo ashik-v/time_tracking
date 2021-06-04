@@ -2,6 +2,12 @@ require_relative "project_repo"
 require_relative "project"
 require_relative "handle_command"
 
+COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
+
+def gets
+  COMMANDS.shift || exit
+end
+
 class TimeTracking
   def main
     loop do
