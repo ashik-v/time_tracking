@@ -4,8 +4,12 @@ ActiveSupport::Dependencies.autoload_paths = ["lib/"]
 
 COMMANDS = %w[t c scrap b scrap e scrap s scrap 65 d scrap]
 
-def gets
-  COMMANDS.shift || exit
+TEST_MODE = ENV["TEST_MODE"]
+
+if TEST_MODE
+  def gets
+    COMMANDS.shift || exit
+  end
 end
 
 class TimeTracking
@@ -42,11 +46,11 @@ class TimeTracking
   end
 
   def save_projects
-    ProjectRepo.save_projects(projects)
+    ProjectRepo.save_projects(projects, "data/projects.yaml")
   end
 
   def projects
-    @projects ||= ProjectRepo.load_projects
+    @projects ||= ProjectRepo.load_projects("data/projects.yaml")
   end
 end
 
