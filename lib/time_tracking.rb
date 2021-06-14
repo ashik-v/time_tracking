@@ -2,13 +2,15 @@ require "active_support"
 
 ActiveSupport::Dependencies.autoload_paths = ["lib/"]
 
-COMMANDS = %w[t c scrap b scrap e scrap s scrap 65 d scrap]
+COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
 
 TEST_MODE = ENV["TEST_MODE"]
 
 if TEST_MODE
   def gets
-    COMMANDS.shift || exit
+    command = COMMANDS.shift || exit
+    puts command
+    command
   end
 end
 
@@ -38,7 +40,7 @@ class TimeTracking
   end
 
   def display_prompt
-    puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+    print "c = create, d = delete s = set duration b = begin timer e = end timer\nWhat is the command? "
   end
 
   def command_from_user
@@ -46,11 +48,13 @@ class TimeTracking
   end
 
   def save_projects
-    ProjectRepo.save_projects(projects, "data/projects.yaml")
+    filename = TEST_MODE ? "data/test_projects.yaml" : "data/projects.yaml"
+    ProjectRepo.save_projects(projects, filename)
   end
 
   def projects
-    @projects ||= ProjectRepo.load_projects("data/projects.yaml")
+    filename = TEST_MODE ? "data/test_projects.yaml" : "data/projects.yaml"
+    @projects ||= ProjectRepo.load_projects(filename)
   end
 end
 
