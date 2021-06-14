@@ -2,10 +2,12 @@ require "active_support"
 
 ActiveSupport::Dependencies.autoload_paths = ["lib/"]
 
-COMMANDS = %w[t c scrap b scrap e scrap s scrap 65 d scrap]
+COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
 
 def gets
-  COMMANDS.shift || exit
+  command = COMMANDS.shift || exit
+  puts command
+  command
 end
 
 class TimeTracking
@@ -34,7 +36,7 @@ class TimeTracking
   end
 
   def display_prompt
-    puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+    print "c = create, d = delete s = set duration b = begin timer e = end timer\nWhat is the command? "
   end
 
   def command_from_user
