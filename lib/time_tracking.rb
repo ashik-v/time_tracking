@@ -51,16 +51,16 @@ class TimeTracking
     get_string.chomp
   end
 
-  def project_repo
-    @project_repo ||= ProjectRepo.new(repo_filename)
-  end
-
   def save_projects
     project_repo.save
   end
 
   def projects
     project_repo.projects
+  end
+
+  def project_repo
+    @project_repo ||= ProjectRepo.new(repo_filename)
   end
 
   def repo_filename
