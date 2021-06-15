@@ -2,25 +2,26 @@ require "yaml/store"
 require_relative "project"
 
 class ProjectRepo
-  attr_reader :filename
+  attr_reader :store, :projects
 
   def initialize(filename)
-    @filename = filename
+    @store = YAML::Store.new(filename)
+    @projects = load_projects
   end
 
+  def save
+    store.transaction do
+      store["Projects"] = projects
+    end
+  end
+
+  private
+
   def load_projects
-    store = YAML::Store.new(filename)
     projects = nil
     store.transaction do
       projects = store["Projects"] || []
     end
     projects
-  end
-
-  def save_projects(projects)
-    store = YAML::Store.new(filename)
-    store.transaction do
-      store["Projects"] = projects
-    end
   end
 end
