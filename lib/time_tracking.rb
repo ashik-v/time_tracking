@@ -6,11 +6,13 @@ COMMANDS = %w[c scrap b scrap e scrap s scrap 65 d scrap]
 
 TEST_MODE = ENV["TEST_MODE"]
 
-if TEST_MODE
-  def gets
+def get_string
+  if TEST_MODE
     command = COMMANDS.shift || exit
     puts command
     command
+  else
+    gets
   end
 end
 
@@ -44,7 +46,7 @@ class TimeTracking
   end
 
   def command_from_user
-    gets.chomp
+    get_string.chomp
   end
 
   def save_projects
