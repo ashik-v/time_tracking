@@ -11,8 +11,8 @@ module ProjectRepo
     projects
   end
 
-  def self.save_projects(projects, _filename)
-    store = YAML::Store.new "data/projects.yaml"
+  def self.save_projects(projects, filename)
+    store = YAML::Store.new filename
     store.transaction do
       store["Projects"] = projects
     end
