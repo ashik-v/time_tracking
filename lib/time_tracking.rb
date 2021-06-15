@@ -52,13 +52,15 @@ class TimeTracking
   end
 
   def save_projects
-    filename = test_mode? ? "data/test_projects.yaml" : "data/projects.yaml"
-    ProjectRepo.save_projects(projects, filename)
+    ProjectRepo.save_projects(projects, repo_filename)
   end
 
   def projects
-    filename = test_mode? ? "data/test_projects.yaml" : "data/projects.yaml"
-    @projects ||= ProjectRepo.load_projects(filename)
+    @projects ||= ProjectRepo.load_projects(repo_filename)
+  end
+
+  def repo_filename
+    test_mode? ? "data/test_projects.yaml" : "data/projects.yaml"
   end
 end
 
