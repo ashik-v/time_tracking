@@ -44,7 +44,7 @@ class TimeTracking
   end
 
   def display_prompt
-    print "c = create, d = delete s = set duration b = begin timer e = end timer\nWhat is the command? "
+    print " c = create, d = delete s = set duration b = begin timer e = end timer\nWhat is the command? "
   end
 
   def command_from_user
