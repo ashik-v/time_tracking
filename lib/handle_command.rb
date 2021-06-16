@@ -1,14 +1,14 @@
 class HandleCommand < Struct.new(:projects)
   COMMANDS = {
-    "c" => "create",
-    "d" => "delete",
-    "s" => "set duration",
-    "b" => "begin timer",
-    "e" => "end timer",
+    "c" => ["create", Commands::CreateProject],
+    "d" => ["delete", Commands::DeleteProject],
+    "b" => ["begin timer", Commands::StartTimer],
+    "e" => ["end timer", Commands::EndTimer],
+    "s" => ["set duration", Commands::EditTimer],
   }
 
   def self.command_header
-    COMMANDS.map { |command, description| "#{command} - #{description}" }
+    COMMANDS.map { |command, array| "#{command} - #{array[0]}" }
   end
 
   def handle_command(command)
@@ -18,13 +18,8 @@ class HandleCommand < Struct.new(:projects)
     command_class.new(projects).run
   end
 
-  def find_command_class(command)
-    case command
-    when /^c/ then Commands::CreateProject
-    when /^d/ then Commands::DeleteProject
-    when /^b/ then Commands::StartTimer
-    when /^e/ then Commands::EndTimer
-    when /^s/ then Commands::EditTimer
-    end
+  def find_command_class(user_input)
+    command = user_input[0]
+    COMMANDS[command][1]
   end
 end
