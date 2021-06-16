@@ -1,10 +1,10 @@
 class HandleCommand < Struct.new(:projects)
   COMMANDS = {
-    "c" => ["create", Commands::CreateProject],
-    "d" => ["delete", Commands::DeleteProject],
-    "b" => ["begin timer", Commands::StartTimer],
-    "e" => ["end timer", Commands::EndTimer],
-    "s" => ["set duration", Commands::EditTimer],
+    "c" => [Commands::CreateProject.description, Commands::CreateProject],
+    "d" => [Commands::DeleteProject.description, Commands::DeleteProject],
+    "b" => [Commands::StartTimer.description, Commands::StartTimer],
+    "e" => [Commands::EndTimer.description, Commands::EndTimer],
+    "s" => [Commands::EditTimer.description, Commands::EditTimer],
   }
 
   def self.command_header

@@ -1,5 +1,9 @@
 module Commands
   class DeleteProject < Struct.new(:projects)
+    def self.description
+      "delete project"
+    end
+
     def run
       print "Which project would you like to delete? "
       project_name = get_string.chomp

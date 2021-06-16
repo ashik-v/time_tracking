@@ -1,5 +1,9 @@
 module Commands
   class EndTimer < Struct.new(:projects)
+    def self.description
+      "end timer"
+    end
+
     def run
       print "What project would you like to end timer for? "
       project_name = get_string.chomp

@@ -1,5 +1,9 @@
 module Commands
   class EditTimer < Struct.new(:projects)
+    def self.description
+      "edit timer"
+    end
+
     def run
       print "What project would you like to edit minutes for? "
       puts project_name = get_string.chomp

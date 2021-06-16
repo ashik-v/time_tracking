@@ -1,5 +1,9 @@
 module Commands
   class StartTimer < Struct.new(:projects)
+    def self.description
+      "begin timer"
+    end
+
     def run
       print "Which project would you like to start a timer for? "
       project_name = get_string.chomp
