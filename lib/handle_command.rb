@@ -1,4 +1,8 @@
 class HandleCommand < Struct.new(:projects)
+  def self.command_header
+    "c = create, d = delete s = set duration b = begin timer e = end timer"
+  end
+
   def handle_command(command)
     command_class = find_command_class(command)
     return puts("\nERROR: Invalid Command - enter valid command\n\n") unless command_class

@@ -44,7 +44,12 @@ class TimeTracking
   end
 
   def display_prompt
-    print " c = create, d = delete s = set duration b = begin timer e = end timer\nWhat is the command? "
+    print " #{command_header}"
+    print "\nWhat is the command? "
+  end
+
+  def command_header
+    HandleCommand.command_header
   end
 
   def command_from_user
