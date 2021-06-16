@@ -1,6 +1,14 @@
 class HandleCommand < Struct.new(:projects)
+  COMMANDS = {
+    "c" => "create",
+    "d" => "delete",
+    "s" => "set duration",
+    "b" => "begin timer",
+    "e" => "end timer",
+  }
+
   def self.command_header
-    "c = create, d = delete s = set duration b = begin timer e = end timer"
+    COMMANDS.map { |command, description| "#{command} - #{description}" }
   end
 
   def handle_command(command)

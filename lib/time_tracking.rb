@@ -44,7 +44,8 @@ class TimeTracking
   end
 
   def display_prompt
-    print " #{command_header}"
+    puts "\nAvailable Commands:"
+    puts command_header
     print "\nWhat is the command? "
   end
 
