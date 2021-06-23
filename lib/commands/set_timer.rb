@@ -1,7 +1,7 @@
 module Commands
-  class EditTimer < Struct.new(:projects)
+  class SetTimer < Struct.new(:projects)
     def self.description
-      "edit timer"
+      "set timer"
     end
 
     def self.key

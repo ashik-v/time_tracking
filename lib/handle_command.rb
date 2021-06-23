@@ -4,7 +4,7 @@ class HandleCommand < Struct.new(:projects)
     Commands::DeleteProject,
     Commands::BeginTimer,
     Commands::EndTimer,
-    Commands::EditTimer,
+    Commands::SetTimer,
   ]
 
   def self.command_header
