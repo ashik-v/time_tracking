@@ -3,5 +3,9 @@ module Commands
     def self.key
       description.chars.first
     end
+
+    def self.description
+      name.split("::").last.titleize.downcase
+    end
   end
 end

@@ -1,9 +1,5 @@
 module Commands
   class SetTimer < Command
-    def self.description
-      "set timer"
-    end
-
     def run
       print "What project would you like to edit minutes for? "
       puts project_name = get_string.chomp
