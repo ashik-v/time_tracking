@@ -1,14 +1,14 @@
 class HandleCommand < Struct.new(:projects)
-  COMMANDS = {
-    "c" => Commands::CreateProject,
-    "d" => Commands::DeleteProject,
-    "b" => Commands::StartTimer,
-    "e" => Commands::EndTimer,
-    "s" => Commands::EditTimer,
-  }
+  COMMANDS = [
+    Commands::CreateProject,
+    Commands::DeleteProject,
+    Commands::StartTimer,
+    Commands::EndTimer,
+    Commands::EditTimer,
+  ]
 
   def self.command_header
-    COMMANDS.map { |key, command| "#{key} - #{command.description}" }
+    COMMANDS.map { |command| "#{command.key} - #{command.description}" }
   end
 
   def handle_command(user_input)
@@ -20,6 +20,6 @@ class HandleCommand < Struct.new(:projects)
 
   def find_command(user_input)
     key = user_input[0]
-    COMMANDS[key]
+    COMMANDS.select { |command| key == command.key }.first
   end
 end

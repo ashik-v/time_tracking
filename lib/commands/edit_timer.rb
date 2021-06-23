@@ -4,6 +4,10 @@ module Commands
       "edit timer"
     end
 
+    def self.key
+      "s"
+    end
+
     def run
       print "What project would you like to edit minutes for? "
       puts project_name = get_string.chomp

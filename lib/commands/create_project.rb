@@ -4,6 +4,10 @@ module Commands
       "create project"
     end
 
+    def self.key
+      "c"
+    end
+
     def run
       print "What is the project name? "
       project_name = get_string.chomp

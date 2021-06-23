@@ -4,6 +4,10 @@ module Commands
       "begin timer"
     end
 
+    def self.key
+      "b"
+    end
+
     def run
       print "Which project would you like to start a timer for? "
       project_name = get_string.chomp
