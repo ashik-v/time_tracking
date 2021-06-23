@@ -1,11 +1,7 @@
 module Commands
-  class CreateProject < Struct.new(:projects)
+  class CreateProject < Command
     def self.description
       "create project"
-    end
-
-    def self.key
-      description.chars.first
     end
 
     def run

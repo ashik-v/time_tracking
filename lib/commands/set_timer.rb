@@ -1,11 +1,7 @@
 module Commands
-  class SetTimer < Struct.new(:projects)
+  class SetTimer < Command
     def self.description
       "set timer"
-    end
-
-    def self.key
-      description.chars.first
     end
 
     def run

@@ -1,11 +1,7 @@
 module Commands
-  class DeleteProject < Struct.new(:projects)
+  class DeleteProject < Command
     def self.description
       "delete project"
-    end
-
-    def self.key
-      description.chars.first
     end
 
     def run

@@ -1,11 +1,7 @@
 module Commands
-  class EndTimer < Struct.new(:projects)
+  class EndTimer < Command
     def self.description
       "end timer"
-    end
-
-    def self.key
-      description.chars.first
     end
 
     def run
