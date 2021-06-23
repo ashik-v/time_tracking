@@ -1,11 +1,11 @@
 module Commands
-  class BeginTimer < Struct.new(:projects)
+  class BeginTimer < Command
     def self.description
       "begin timer"
     end
 
     def self.key
-      "b"
+      description.chars.first
     end
 
     def run

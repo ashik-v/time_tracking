@@ -5,7 +5,7 @@ module Commands
     end
 
     def self.key
-      "e"
+      description.chars.first
     end
 
     def run
