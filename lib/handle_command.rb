@@ -2,7 +2,7 @@ class HandleCommand < Struct.new(:projects)
   COMMANDS = [
     Commands::CreateProject,
     Commands::DeleteProject,
-    Commands::StartTimer,
+    Commands::BeginTimer,
     Commands::EndTimer,
     Commands::EditTimer,
   ]

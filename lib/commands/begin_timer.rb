@@ -1,5 +1,5 @@
 module Commands
-  class StartTimer < Struct.new(:projects)
+  class BeginTimer < Struct.new(:projects)
     def self.description
       "begin timer"
     end
