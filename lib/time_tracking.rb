@@ -15,14 +15,15 @@ end
 class TimeTracking
   def main
     loop do
-      display_projects
-      display_prompt
-      HandleCommand.new(projects).handle_command(command_from_user)
-      save_projects
+      project_repo.persist do |projects|
+        display_projects(projects)
+        display_prompt
+        HandleCommand.new(projects).handle_command(command_from_user)
+      end
     end
   end
 
-  def display_projects
+  def display_projects(projects)
     display_header
     projects.each do |project|
       display_project(project)
@@ -43,14 +44,6 @@ class TimeTracking
 
   def command_from_user
     get_string.chomp
-  end
-
-  def save_projects
-    project_repo.save_projects(projects)
-  end
-
-  def projects
-    @projects ||= project_repo.load_projects
   end
 
   def project_repo

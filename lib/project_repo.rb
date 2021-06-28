@@ -8,6 +8,14 @@ class ProjectRepo
     @filename = filename
   end
 
+  def persist(&block)
+    projects = load_projects
+    block.call(projects)
+    save_projects(projects)
+  end
+
+  private
+
   def load_projects
     store = YAML::Store.new(filename)
     projects = nil
