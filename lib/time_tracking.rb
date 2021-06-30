@@ -51,7 +51,7 @@ class TimeTracking
   end
 
   def filename
-    TestMode.test_mode? ? "data/test_projects.yaml" : "data/projects.yaml"
+    ENV["TIME_TRACKING_FILENAME"]
   end
 end
 

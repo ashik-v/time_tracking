@@ -1,1 +1,6 @@
+#!/bin/bash
+
+export TIME_TRACKING_TEST_MODE="false"
+export TIME_TRACKING_FILENAME="data/projects.yaml"
+
 ruby ./lib/time_tracking.rb

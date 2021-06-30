@@ -2,7 +2,8 @@
 
 trap "echo Exited!; exit;" SIGINT SIGTERM
 
-export TEST_MODE=true
+export TIME_TRACKING_TEST_MODE="true"
+export TIME_TRACKING_FILENAME="data/test_projects.yaml"
 
 while true; do
   ag -g '\.rb$' | entr -c -d -p -s 'clear; rubocop -A lib; ruby ./lib/time_tracking.rb'
