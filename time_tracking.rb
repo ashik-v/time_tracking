@@ -20,14 +20,14 @@ class TimeTracking
   end
 
   def get_string
-    # gets
+    # gets.chomp
     COMMANDS.shift || exit
   end
 
   def main
     loop do
       display_header
-      command = get_string.chomp
+      command = get_string
       handle_command(command)
       ProjectRepo.save_projects(projects)
     end
@@ -45,29 +45,29 @@ class TimeTracking
     case command
     when /^c/
       puts "What is the project name?"
-      project_name = get_string.chomp
+      project_name = get_string
       projects << Project.new(project_name, 0)
     when /^d/
       puts "Which project would you like to delete?"
-      project_name = get_string.chomp
+      project_name = get_string
       projects.delete_if { |project| project.name == project_name }
     when /^b/
       puts "Which project would you like to start a timer for?"
-      project_name = get_string.chomp
+      project_name = get_string
       project = projects.find { |project| project.name == project_name }
       project.last_started_at = Time.now
     when /^e/
       puts "What project would you like to end timer for?"
-      project_name = get_string.chomp
+      project_name = get_string
       project = projects.find { |project| project.name == project_name }
       project.minutes += ((Time.now - project.last_started_at) / 60).to_i
       project.last_started_at = nil
     when /^s/
       puts "What project would you like to edit minutes for?"
-      project_name = get_string.chomp
+      project_name = get_string
       project = projects.find { |project| project.name == project_name }
       puts "What are the updated minutes?"
-      project.minutes = get_string.chomp.to_i
+      project.minutes = get_string.to_i
       project.last_started_at = nil
     end
   end
