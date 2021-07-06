@@ -13,8 +13,11 @@ Project = Struct.new(:name, :minutes, :last_started_at, :display_time) do
 end
 
 class TimeTracking
+  def projects
+    @projects ||= ProjectRepo.load_projects
+  end
+
   def main
-    projects = ProjectRepo.load_projects
     while true
       puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
       projects.each do |project|
@@ -51,7 +54,7 @@ class TimeTracking
         project.last_started_at = nil
       end
       ProjectRepo.save_projects(projects)
-    end   
+    end
   end
 end
 
