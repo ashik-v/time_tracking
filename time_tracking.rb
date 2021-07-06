@@ -26,11 +26,7 @@ class TimeTracking
 
   def main
     loop do
-      puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
-      projects.each do |project|
-        puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
-      end
-      puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
+      display_header
       command = get_string.chomp
       case command
       when /^c/
@@ -62,6 +58,14 @@ class TimeTracking
       end
       ProjectRepo.save_projects(projects)
     end
+  end
+
+  def display_header
+    puts format("|%-15s | %-5s | %-26s|", "Project Name", "Timer", "Last Started At")
+    projects.each do |project|
+      puts format("|%-15s | %-5s | %-26s|", project.name, project.display_time || "-", project.last_started_at || "-")
+    end
+    puts "What is the command?\nc = create, d = delete\n s = set duration b = begin timer e = end timer"
   end
 end
 
