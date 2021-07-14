@@ -46,7 +46,7 @@ class TimeTracking
     when /^c/
       puts "What is the project name?"
       project_name = get_string
-      projects << Project.new(project_name, 0)
+      create_project(project_name)
     when /^d/
       puts "Which project would you like to delete?"
       project_name = get_string
@@ -70,6 +70,10 @@ class TimeTracking
       project.minutes = get_string.to_i
       project.last_started_at = nil
     end
+  end
+
+  def create_project(project_name)
+    projects << Project.new(project_name, 0)
   end
 end
 
