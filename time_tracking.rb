@@ -6,7 +6,8 @@
 # b = begin timer, e = end timer
 require_relative "project_repo"
 
-Project = Struct.new(:name, :minutes, :start_time) do
+class Project
+  attr_accessor :name, :minutes, :start_time
     def to_s
       format("%s %s %s", name, minutes, start_time)
     end

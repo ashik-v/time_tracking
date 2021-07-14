@@ -6,7 +6,9 @@
 <body>
   <h1>Projects</h1>
   <ul>
-    <li><%= @project.name %></li>
+    <% @projects.each do |project| %>
+    <li><%= project.name %></li>
+    <% end %>
   </ul>
 </body>
 </html>
